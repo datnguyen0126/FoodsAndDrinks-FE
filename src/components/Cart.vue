@@ -1,83 +1,88 @@
 <template>
   <div>
     <Navbar />
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col mt-2">
-          <h2 class="text-center">Your Cart</h2>
-          <table class="table table-bordered table-striped p-2">
-            <thead>
-              <tr>
-                <th>Quantity</th>
-                <th>Product</th>
-                <th class="text-right">Price</th>
-                <th class="text-right">Subtotal</th>
-              </tr>
-            </thead>
+    <div class="container">
+      <table id="cart" class="table table-hover table-condensed">
+        <thead>
+          <tr>
+            <th style="width:48%">Product</th>
+            <th style="width:10%">Price</th>
+            <th style="width:8%">Quantity</th>
+            <th style="width:22%" class="text-center">Subtotal</th>
+            <th style="width:12%"></th>
+          </tr>
+        </thead>
             <tbody>
-              <tr v-if="lines.length == 0">
+              <tr v-if="items.length == 0">
                 <td colspan="4" class="text-center">Your cart is empty</td>
               </tr>
-              <!-- <cart-line
-              v-for="line in lines"
-              v-bind:key="line.product.id"
-              v-bind:line="line"
-              v-on:quantity="handleQuantityChange(line, $event)"
-              v-on:remove="remove"
-              />-->
+              <cart-line
+                v-for="item in items"
+                v-bind:key="item.food_id"
+                v-bind:item="item"
+                v-on:quantity="handleQuantityChange(item, $event)"
+                v-on:update="updateCart"
+                v-on:delete="deleteCart({food_id:item.food.id})"
+              />
             </tbody>
-            <tfoot v-if="lines.length > 0">
-              <tr>
-                <td colspan="3" class="text-right">Total:</td>
-                <td class="text-right">{{ totalPrice }}</td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <div class="text-center">
-            <router-link to="/" class="btn btn-secondary m-1">Back to shop</router-link>
-            <router-link
-              to="/checkout"
-              class="btn btn-primary m-1"
-              v-bind:disabled="lines.length == 0"
-            >Checkout</router-link>
-          </div>
-        </div>
-      </div>
+        <tfoot>
+          <tr>
+            <td>
+              <router-link to="/" class="btn btn-warning">
+                <i class="fa fa-angle-left"></i>Back to shop
+              </router-link>
+            </td>
+            <td colspan="2" class="hidden-xs"></td>
+            <td class="hidden-xs text-center">
+              <strong>Total ${{ items.reduce((total, item) => total + (item.quantity * item.price), 0) }}</strong>
+            </td>
+
+            <td>
+              <router-link
+                to="/checkout"
+                class="btn btn-success btn-block"
+                v-bind:disabled="items.length == 0"
+              >
+                Checkout <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </router-link>
+            </td>
+          </tr>
+        </tfoot>
+      </table>      
     </div>
   </div>
 </template>
     
 <script>
-//import CartLine from "./CartLine";
+import { mapActions, mapState } from "vuex";
+import CartLine from "./CartLine";
 import Navbar from "./Navbar";
-import axios from "axios";
-import { authHeader } from "../_helpers";
 
-let be_url = process.env.VUE_APP_DJANGO_HOST;
-const url = `${be_url}/cart/`;
 export default {
   components: {
     Navbar,
+    CartLine,
   },
-  data: function () {
-    return {
-      products: [],
-      lines: 0,
-    };
+  computed: {
+    ...mapState({
+      items: (state) => state.cart.items,
+      message: (state) => state.cart.message,
+    }),
   },
-  methods: {},
+  methods: {
+    ...mapActions("cart", {
+      getCart: "getCart",
+      addCart: "addCart",
+      updateCart: "updateCart",
+      deleteCart: "deleteCart",
+    }),
+    handleQuantityChange(line, $event) {
+      this.change({ line, quantity: $event });
+    },
+  },
   created() {
-    axios
-      .get(url, {
-        headers: authHeader(),
-      })
-      .then((resp) => {
-        console.log(resp.data);
-      });
+    this.getCart();
   },
 };
 </script>
+
