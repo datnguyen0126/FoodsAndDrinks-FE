@@ -11,7 +11,7 @@ let url = process.env.VUE_APP_DJANGO_HOST;
 
 function getAll(page) {
     return axios
-        .get(`${url}/foods/public?page=${page}`)
+        .get(`${url}/foods/public/?page=${page}`)
         .then(handleResponse)
     }
 

@@ -2,7 +2,6 @@ import { userService } from '../_services';
 import { router } from '../router';
 
 const user = JSON.parse(localStorage.getItem('user'));
-
 const state = user
     ? { status: { loggedIn: true }, user }
     : { status: {}, user: null };
@@ -23,7 +22,6 @@ const actions = {
                 }
             );
     },
-
     logout({ commit }) {
         userService.logout();
         commit('logout');
@@ -76,17 +74,14 @@ const mutations = {
         state.status = { loggingIn: true };
         state.user = user;
     },
-
     loginSuccess(state, user) {
         state.status = { loggedIn: true };
         state.user = user;
     },
-
     loginFailure(state) {
         state.status = {};
         state.user = null;
     },
-
     logout(state) {
         state.status = {};
         state.user = null;
