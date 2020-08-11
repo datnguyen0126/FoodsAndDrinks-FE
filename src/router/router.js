@@ -4,6 +4,8 @@ import Home from "../views/Home";
 import Detail from "../views/Detail"
 import Login from "../views/Login"
 import Register from "../views/Register"
+import ChangePassword from "../views/ChangePassword"
+import Profile from "../views/Profile"
 
 Vue.use(VueRouter);
 
@@ -14,6 +16,8 @@ export const router = new VueRouter({
         { path: "/food/:id",name: 'food_detail', component: Detail},
         { path: "/login",name: 'login_page', component: Login},
         { path: "/register",name: 'register_page', component: Register},
+        { path: "/profile/change_password",name: 'change_password_page', component: ChangePassword},
+        { path: "/profile",name: 'profile', component: Profile},
         { path: "*", redirect: "/"}
     ]
 })

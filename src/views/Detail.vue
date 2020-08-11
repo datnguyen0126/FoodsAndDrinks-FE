@@ -28,8 +28,8 @@
 							</div>
 						</div>
 					</div>
-                </div>
-            </div>
+        </div>
+      </div>
     <div class="container">
       <div class="row">
         <main class="post blog-post col-lg-8"> 
@@ -76,12 +76,12 @@
           
                 <div class="post-comments">
                   <header>
-                    <h3 class="h6">Post Comments<span class="no-of-comments">()</span></h3>
+                    <h3 class="h6">Post Comments<span class="no-of-comments">({{comments.length}})</span></h3>
                   </header>
                   <div class="comment"  v-for="cmt in comments" :key="cmt.id">
                     <div class="comment-header d-flex justify-content-between">
                       <div class="user d-flex align-items-center">
-                        <!-- <div class="image"><img src="img/user.svg" alt="..." class="img-fluid rounded-circle"></div> -->
+                        <avatar v-bind:fullname="cmt.user.name" size="25" class="mr-3"/>
                         <div class="title"><strong>{{cmt.user.name}} </strong><span class="date"> {{format_date(cmt.created_at)}}</span></div>
                       </div>
                     </div>
@@ -108,13 +108,15 @@
 
 <script>
   import {mapActions, mapState} from 'vuex'
+  import Avatar from 'vue-avatar-component'
   import moment from 'moment';
   import Navbar from '../components/Navbar'
   import ModalRating from '../components/ModalRating'
   export default {
     components: {
       Navbar, 
-      ModalRating
+      ModalRating,
+      Avatar
     },
     data(){
         return{

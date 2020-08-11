@@ -28,8 +28,7 @@ const actions = {
     addRating({ commit }, { food_id, score }){
         foodService.ratingFood(food_id, score )
             .then(
-                res =>  {
-                    console.log(res)
+                () =>  {
                     commit('addRatingSuccess')
                 },
                 error => commit('addRatingFailure', error)

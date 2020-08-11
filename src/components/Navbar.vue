@@ -1,25 +1,35 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark w-100">
-    <div class="container">
-        <a class="navbar-brand" href="#">
-          Da Nang Milktea
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Cart</a>
-            </li>
-            <li class="nav-item">
-              <router-link v-if="account.user === null" :to="{ name: 'login_page'}" class="btn btn-primary text-light">Login</router-link>
-              <span v-else> <a @click="logout()" class="btn btn-primary text-light">Logout({{account.user.name}})</a></span>
-            </li>
-          </ul>
-        </div>
-      </div>        
-   </nav>
+<div>
+  <b-navbar toggleable="lg" type="dark" variant="info">
+    <b-navbar-brand href="#">Da Nang Milktea</b-navbar-brand>
+
+    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+    <b-collapse id="nav-collapse" is-nav>
+
+      <b-navbar-nav class="ml-auto">
+        <b-nav-form class="mr-sm-5">
+          <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
+          <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
+        </b-nav-form>
+
+        <button type="button" class="btn btn-light mr-sm-4">Cart</button>
+
+        <router-link v-if="account.user === null" :to="{ name: 'login_page'}" type="button" class="btn btn-primary">Login</router-link>
+        <b-nav-item-dropdown right v-else>
+          <template v-slot:button-content>
+            <em>{{account.user.name}}</em>
+          </template>
+          <b-dropdown-item >
+            <router-link to="/profile" class="btn btn-link">Profile</router-link>
+          </b-dropdown-item>
+          <b-dropdown-item @click="logout()">Sign Out</b-dropdown-item>
+        </b-nav-item-dropdown>
+
+      </b-navbar-nav>
+    </b-collapse>
+  </b-navbar>
+</div>
 </template>
 
 
@@ -32,10 +42,10 @@
         account: state => state.account,
         })
       },
-      methods:{
-        ...mapActions('account',{
-          logout:'logout',
-        })
-      },
+    methods:{
+      ...mapActions('account',{
+        logout:'logout',
+      })
+    },
   };
 </script>

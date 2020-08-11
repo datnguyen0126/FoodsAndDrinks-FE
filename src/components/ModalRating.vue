@@ -44,7 +44,7 @@ export default {
       add: 'addRating'
     }),
     handleSubmit(id){
-      console.log(this.stars, id)
+      this.$modal.hide('modal-rating')
       this.add({food_id: id, score: this.stars});
       
     },
