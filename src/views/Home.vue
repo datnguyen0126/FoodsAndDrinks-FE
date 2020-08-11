@@ -2,7 +2,8 @@
     <div class="container-fluid">
         <Navbar/>
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-3">	
+                <category/>
             </div>
             <FoodtList/>
         </div>
@@ -15,6 +16,7 @@
 <script>
     import FoodtList from '../components/FoodtList'
     import Navbar from '../components/Navbar'
+    import Category from '../components/Category'
     import { mapState, mapActions} from 'vuex'
 
     export default {
@@ -31,6 +33,7 @@
         components: {
             FoodtList, 
             Navbar,
+            Category
             }
     }
 </script>

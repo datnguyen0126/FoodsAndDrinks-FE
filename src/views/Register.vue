@@ -35,7 +35,8 @@ export default {
             user: {
                 name: '',
                 email: '',
-                password: ''
+                password: '',
+                submitted: false
             },
             submitted: false
         }

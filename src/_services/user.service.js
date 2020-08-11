@@ -66,6 +66,7 @@ function change_password(current_password, new_password){
 }
 
 function handleResponse(response) {
+    console.log('aaa')
     if (response.status === 401) {
         logout();
         location.reload(true);
