@@ -13,8 +13,7 @@
           <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
         </b-nav-form>
 
-        <button type="button" class="btn btn-light mr-sm-4">Cart</button>
-
+        <router-link v-if="account.user !== null" :to="{ name: 'cart_page'}" type="button" class="btn btn-light mr-sm-4">Cart</router-link>
         <router-link v-if="account.user === null" :to="{ name: 'login_page'}" type="button" class="btn btn-primary">Login</router-link>
         <b-nav-item-dropdown right v-else>
           <template v-slot:button-content>

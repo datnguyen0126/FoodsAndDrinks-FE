@@ -2,8 +2,7 @@
     <div class="container-fluid">
         <Navbar/>
         <div class="row">
-            <div class="col-sm-3">	
-                <category/>
+            <div class="col-sm-3">
             </div>
             <FoodtList/>
         </div>
