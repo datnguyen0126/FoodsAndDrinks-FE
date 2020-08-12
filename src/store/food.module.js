@@ -59,7 +59,7 @@ const mutations = {
     },
 
     getDetailRequest(state) {
-        state.all = { loading: true };
+        state.all = { loading: true, food: {} };
     },
 
     getDetailSuccess(state, res) {

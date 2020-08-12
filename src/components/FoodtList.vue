@@ -39,6 +39,8 @@ import { authHeader } from "../_helpers";
 
 let be_url = process.env.VUE_APP_DJANGO_HOST;
 const url = `${be_url}/cart/`;
+axios.defaults.xsrfHeaderName = "X-CSRFToken"
+axios.defaults.xsrfCookieName = 'csrftoken'
 
 export default {
   components: {
@@ -70,8 +72,7 @@ export default {
         })
         .then((resp) => {
           console.log(resp.data);
-        })
-        .error(error => console.log(error))
+        });
     },
     ...mapActions("foods", {
       getAll: "getAll",

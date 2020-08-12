@@ -22,7 +22,7 @@
           <b-dropdown-item >
             <router-link to="/profile" class="btn btn-link">Profile</router-link>
           </b-dropdown-item>
-          <b-dropdown-item @click="logout()">Sign Out</b-dropdown-item>
+          <b-dropdown-item @click="logout()"><router-link to="/">Sign Out</router-link></b-dropdown-item>
         </b-nav-item-dropdown>
 
       </b-navbar-nav>

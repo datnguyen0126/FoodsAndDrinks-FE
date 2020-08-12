@@ -23,13 +23,14 @@
                 v-bind:key="item.food_id"
                 v-bind:item="item"
                 v-on:quantity="handleQuantityChange(item, $event)"
-                v-on:delete="deleteCart"
+                v-on:update="updateCart"
+                v-on:delete="deleteCart({food_id:item.food.id})"
               />
             </tbody>
             <tfoot v-if="items.length > 0">
               <tr>
                 <td colspan="3" class="text-right">Total:</td>
-                <td class="text-right">{{ totalPrice }}</td>
+                <td class="text-right">{{ items.reduce((total, item) => total + (item.quantity * item.price), 0) }}</td>
               </tr>
             </tfoot>
           </table>
@@ -83,3 +84,4 @@ export default {
   }
 };
 </script>
+

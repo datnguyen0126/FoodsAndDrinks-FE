@@ -19,27 +19,27 @@ const actions = {
     addCart({ commit }, { food_id, quantity }){
         cartService.addCart(food_id, quantity)
             .then(
-                res => commit('changeCartSuccess', res),
-                error => commit('changeCartFailure', error)
+                error => commit('updateCartFailure', error)
             );
     },
 
     updateCart({ commit }, { food_id, quantity }){
         cartService.updateCart(food_id, quantity)
             .then(
-                res => commit('changeCartSuccess', res),
-                error => commit('changeCartFailure', error)
+                () => commit('updateCartSuccess', { food_id, quantity }),
+                error => commit('updateCartFailure', error)
             );
     },
 
     deleteCart({ commit }, { food_id }){
         cartService.deleteCart(food_id)
             .then(
-                res => commit('changeCartSuccess', res),
-                error => commit('changeCartFailure', error)
+                res => commit('deleteCartSuccess', res),
+                error => commit('deleteCartFailure', error)
             );
     },
 };
+
 const mutations = {
 
     getCartRequest(state) {
@@ -47,13 +47,8 @@ const mutations = {
     },
 
     getCartSuccess(state, res) {
-        Object.keys(res).forEach(key => {
-            let data = {
-                food_id: key,
-                price: res[key].price,
-                quantity: res[key].quantity
-            }
-            state.items.push(data)
+        Object.keys(res).forEach(key => {            
+            state.items.push(res[key])
         })
     },
 
@@ -61,11 +56,25 @@ const mutations = {
         state.items = [{ error }];
     },
 
-    changeCartSuccess(state, res) {
-        state.message = res
+    updateCartSuccess(state, { food_id, quantity }) {
+        let currentItem = state.items.filter(item => item.food.id == food_id)[0];
+        let index = state.items.indexOf(currentItem);
+        currentItem.quantity = quantity;
+        this.state.items[index] = currentItem;
     },
 
-    changeCartFailure(state, error) {
+    updateCartFailure(state, error) {
+        state.message = error
+    },
+
+    deleteCartSuccess(state, res) {
+        let index = state.items.findIndex(item => item.food.id == res.id)        
+        if (index > -1) {
+            state.items.splice(index, 1);
+        }
+    },
+
+    deleteCartFailure(state, error) {
         state.message = error
     },
 };

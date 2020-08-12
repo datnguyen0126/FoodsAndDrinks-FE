@@ -2,7 +2,7 @@ import axios from "axios";
 import { authHeader } from "../_helpers";
 
 let be_url = process.env.VUE_APP_DJANGO_HOST;
-const url = `${be_url}/cart/`;
+const url = `${be_url}/cart`;
 axios.defaults.xsrfHeaderName = "X-CSRFToken"
 axios.defaults.xsrfCookieName = 'csrftoken'
 
@@ -40,7 +40,7 @@ function updateCart(food_id, quantity) {
     quantity: quantity,
   };
   return axios
-    .put(`${url}/${food_id}/`, data, {
+    .put(`${url}/${food_id}`, data, {
       withCredentials: true,
       headers: authHeader(),
     })
@@ -49,7 +49,7 @@ function updateCart(food_id, quantity) {
 
 function deleteCart(food_id) {
   return axios
-    .delete(`${url}/${food_id}/`, {
+    .delete(`${url}/${food_id}`, {
       withCredentials: true,
       headers: authHeader(),
     })
