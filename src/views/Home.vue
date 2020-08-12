@@ -3,6 +3,7 @@
         <Navbar/>
         <div class="row">
             <div class="col-sm-3">
+                <Category />
             </div>
             <FoodtList/>
         </div>
