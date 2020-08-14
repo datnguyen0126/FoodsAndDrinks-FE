@@ -8,8 +8,8 @@
     <b-collapse id="nav-collapse" is-nav>
 
       <b-navbar-nav class="ml-auto">
-        <b-nav-form class="mr-sm-5">
-          <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
+        <b-nav-form @submit.prevent="handleSearch" class="mr-sm-5">
+          <b-form-input v-model="q" size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
           <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
         </b-nav-form>
 
@@ -33,9 +33,14 @@
 
 
 <script>
-  import { mapState, mapActions} from 'vuex'
-  export default {
+  import { mapState, mapActions } from 'vuex'
+   export default {
     name: "Navbar",
+    data () {
+        return {
+            q: '',
+        }
+    },
     computed: {
       ...mapState({
         account: state => state.account,
@@ -44,7 +49,16 @@
     methods:{
       ...mapActions('account',{
         logout:'logout',
-      })
+      }),
+      ...mapActions('foods',{
+        getBySearch:'getBySearch',
+      }),
+      handleSearch(){
+        const {q} = this;
+            if (q) {
+                this.getBySearch({q})
+            }
+      }
     },
   };
 </script>

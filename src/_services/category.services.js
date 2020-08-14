@@ -7,7 +7,6 @@ export const categoryService = {
 let url = process.env.VUE_APP_DJANGO_HOST;
 
 function getAll() {
-    console.log('services')
     return axios
         .get(`${url}/foods/categories/`)
         .then(handleResponse)
