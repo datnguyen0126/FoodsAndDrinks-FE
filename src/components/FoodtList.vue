@@ -22,7 +22,7 @@
       </div>
     </div>
     <pagination
-      v-if="!foods.filter"
+      v-if="foods.all"
       :total-pages="foods.page_total"
       :current-page="currentPage"
       @pagechanged="onPageChange"
@@ -36,7 +36,8 @@ import Pagination from "../components/Pagination";
 
 import axios from "axios";
 import { authHeader } from "../_helpers";
-
+axios.defaults.xsrfHeaderName = "X-CSRFToken"
+axios.defaults.xsrfCookieName = 'csrftoken'
 let be_url = process.env.VUE_APP_DJANGO_HOST;
 const url = `${be_url}/cart/`;
 
