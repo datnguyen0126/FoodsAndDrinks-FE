@@ -22,6 +22,7 @@
       </div>
     </div>
     <pagination
+      v-if="!foods.filter"
       :total-pages="foods.page_total"
       :current-page="currentPage"
       @pagechanged="onPageChange"
@@ -38,7 +39,6 @@ import { authHeader } from "../_helpers";
 
 let be_url = process.env.VUE_APP_DJANGO_HOST;
 const url = `${be_url}/cart/`;
-axios.defaults.withCredentials = true;
 
 export default {
   components: {
@@ -70,7 +70,8 @@ export default {
         })
         .then((resp) => {
           console.log(resp.data);
-        });
+        })
+        .error(error => console.log(error))
     },
     ...mapActions("foods", {
       getAll: "getAll",

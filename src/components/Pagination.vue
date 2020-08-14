@@ -13,7 +13,7 @@
       </button>
     </li>
 
-    <li v-for="page in pages" class="pagination-item" :key="page">
+    <li v-for="page in pages" class="pagination-item" :key="page.name">
       <button v-if="page.name>0" type="button" @click="onClickPage(page.name)" :disabled="page.isDisabled" :class="{ active: isPageActive(page.name) }">
         {{ page.name }}
       </button>

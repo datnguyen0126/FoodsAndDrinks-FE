@@ -1,71 +1,58 @@
 <template>
-  <div>
-    <h2>Category</h2>
-    <vue-tree-list
-        @click="onClick"
-        :model="data"
-      v-bind:default-expanded="false"
-    >
+  <div
+    style="
+    margin-top: 50px;
+    margin-bottom: 40px;
+    padding: 30px;
+    border: 1px solid #eee;
+    border-radius: 5px;"
+  >
+    <h2>Categories</h2>
+    <vue-tree-list @click="onClick" :model="data" v-bind:default-expanded="false">
       <template v-slot:leafNameDisplay="slotProps">
-        <span>
-          {{ slotProps.model.name }} <span class="muted">#{{ slotProps.model.id }}</span>
-        </span>
+        <h4 class="panel-title">
+          {{ slotProps.model.name }}
+        </h4>
       </template>
-
-
     </vue-tree-list>
   </div>
 </template>
  
 <script>
-  import { VueTreeList, Tree, TreeNode } from 'vue-tree-list'
-  export default {
-    components: {
-      VueTreeList
-    },
-    data() {
-      return {
-        newTree: {},
-        data: new Tree([
-          {
-            name: 'Node 1',
-            id: 1,
-            addLeafNodeDisabled: true,
-            addTreeNodeDisabled: true,
-            editNodeDisabled: true,
-            delNodeDisabled: true,
-            children: [
-              {
-                name: 'Node 1-2',
-                id: 2,
-                isLeaf: true,
-                editNodeDisabled: true,
-                delNodeDisabled: true,
-              }
-            ]
-          },
-          {
-            name: 'Node 2',
-            id: 3,
-          },
-          {
-            name: 'Node 3',
-            id: 4,
+import { VueTreeList, Tree ,TreeNode } from "vue-tree-list";
+import { categoryService } from "../_services/category.services";
+import { mapActions } from "vuex";
 
-          }
-        ])
-      }
+export default {
+  components: {
+    VueTreeList,
+  },
+  data() {
+    return {
+      newTree: {},
+      data: {},
+    };
+  },
+
+  created() {
+    categoryService.getAll().then((res) => {
+      this.data = new Tree(res);
+    });
+  },
+
+  methods: {
+    ...mapActions("foods", {
+      getByCategory: "getByCategory",
+      getAll: "getAll",
+    }),
+    onClick(params) {
+      params.id===0 ? this.getAll(0) : this.getByCategory({ id: params.id });
     },
-    methods: { 
-      onClick(params) {
-        console.log(params)
-      },
- 
-      addNode() {
-        var node = new TreeNode({ name: 'new node', isLeaf: false })
-        if (!this.data.children) this.data.children = []
-        this.data.addChildren(node)
-      },
-    }
-  }
+    addNode() {
+      var node = new TreeNode({ name: "new node", isLeaf: false });
+      if (!this.data.children) this.data.children = [];
+      this.data.addChildren(node);
+    },
+  },
+};
 </script> 

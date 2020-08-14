@@ -33,6 +33,15 @@ const actions = {
                 },
                 error => commit('addRatingFailure', error)
             );
+    },
+    getByCategory({ commit }, { id }) {
+        foodService.getByCategory(id)
+            .then(
+                res => {
+                    console.log('id module: ', res)
+                    commit('getByCategorySuccess', res)
+                }
+            )
     }
 };
 const mutations = {
@@ -68,6 +77,10 @@ const mutations = {
     addRatingFailure(state, error) {
         state.all = { ...state.all, error };
     },
+
+    getByCategorySuccess(state, res) {
+        state.all = { foods: res.listfoods, filter: true };
+    }
 };
 
 export const foods = {
