@@ -1,37 +1,29 @@
 <template>
-<div >
-  <ul class="pagination">
-    <li class="pagination-item">
-      <button type="button" @click="onClickFirstPage" :disabled="isInFirstPage">
-        First
-      </button>
-    </li>
-
-    <li class="pagination-item">
-      <button type="button" @click="onClickPreviousPage" :disabled="isInFirstPage">
-        Previous
-      </button>
-    </li>
-
-    <li v-for="page in pages" class="pagination-item" :key="page.name">
-      <button v-if="page.name>0" type="button" @click="onClickPage(page.name)" :disabled="page.isDisabled" :class="{ active: isPageActive(page.name) }">
-        {{ page.name }}
-      </button>
-    </li>
-
-    <li class="pagination-item">
-      <button type="button" @click="onClickNextPage" :disabled="isInLastPage">
-        Next
-      </button>
-    </li>
-
-    <li class="pagination-item">
-      <button type="button" @click="onClickLastPage" :disabled="isInLastPage">
-        Last
-      </button>
-    </li>
-  </ul>
-</div>
+  <div>
+    <ul class="pagination">
+      <li :class="['page-item',{disabled: isInFirstPage}]">
+        <a class="page-link" @click="onClickFirstPage">First</a>
+      </li>
+      <li :class="['page-item',{disabled: isInFirstPage}]">
+        <a class="page-link" @click="onClickPreviousPage">Previous</a>
+      </li>
+      <li v-for="page in pages" class="page-item" :key="page.name">
+        <a
+          class="page-link"
+          v-if="page.name>0"
+          @click="onClickPage(page.name)"
+          :disabled="page.isDisabled"
+          :class="{ active: isPageActive(page.name) }"
+        >{{ page.name }}</a>
+      </li>
+      <li :class="['page-item',{disabled: isInLastPage}]">
+        <a class="page-link" @click="onClickNextPage">Next</a>
+      </li>
+      <li :class="['page-item',{disabled: isInLastPage}]">
+        <a type="button" class="page-link" @click="onClickLastPage">Last</a>
+      </li>
+    </ul>
+  </div>
 </template>
 <script>
 export default {
@@ -39,11 +31,11 @@ export default {
     maxVisibleButtons: {
       type: Number,
       required: false,
-      default: 3
+      default: 3,
     },
     totalPages: {
       type: Number,
-      required: true
+      required: true,
     },
     currentPage: {
       type: Number,
@@ -55,22 +47,24 @@ export default {
       if (this.currentPage === 1) {
         return 1;
       }
-      if (this.currentPage === this.totalPages) { 
+      if (this.currentPage === this.totalPages) {
         return this.totalPages - this.maxVisibleButtons + 1;
       }
       return this.currentPage - 1;
-
     },
     endPage() {
-      return Math.min(this.startPage + this.maxVisibleButtons - 1, this.totalPages);
+      return Math.min(
+        this.startPage + this.maxVisibleButtons - 1,
+        this.totalPages
+      );
     },
     pages() {
       const range = [];
 
-      for (let i = this.startPage; i <= this.endPage; i+= 1 ) {
+      for (let i = this.startPage; i <= this.endPage; i += 1) {
         range.push({
           name: i,
-          isDisabled: i === this.currentPage 
+          isDisabled: i === this.currentPage,
         });
       }
 
@@ -85,29 +79,30 @@ export default {
   },
   methods: {
     onClickFirstPage() {
-      this.$emit('pagechanged', 1);
+      this.$emit("pagechanged", 1);
     },
     onClickPreviousPage() {
-      console.log(this.currentPage-1)
-      this.$emit('pagechanged', this.currentPage-1 > 0 ? this.currentPage-1:1);
-
+      console.log(this.currentPage - 1);
+      this.$emit(
+        "pagechanged",
+        this.currentPage - 1 > 0 ? this.currentPage - 1 : 1
+      );
     },
     onClickPage(page) {
-      if(page>0)
-        this.$emit('pagechanged', page);
+      if (page > 0) this.$emit("pagechanged", page);
     },
     onClickNextPage() {
-      this.$emit('pagechanged', this.currentPage + 1);
+      this.$emit("pagechanged", this.currentPage + 1);
     },
     onClickLastPage() {
-      this.$emit('pagechanged', this.totalPages);    
+      this.$emit("pagechanged", this.totalPages);
     },
     isPageActive(page) {
       return this.currentPage === page;
     },
-  }
+  },
 };
 </script>
-<style scoped lang="scss"> 
+<style scoped lang="scss">
 @import "../styles/pagination.scss";
 </style>

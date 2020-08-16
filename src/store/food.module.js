@@ -37,12 +37,17 @@ const actions = {
     getByCategory({ commit }, { id }) {
         foodService.getByCategory(id)
             .then(
-                res => {
-                    console.log('id module: ', res)
-                    commit('getByCategorySuccess', res)
-                }
+                res =>commit('getByCategorySuccess', {res, id})
+            )
+    },
+    getBySearch({ commit }, { q }){
+        foodService.getbySearch(q)
+            .then(
+                (res)=>commit('getBySearchSuccess', {res, q}),
+                error=>commit('getBySearchFailure', error)
             )
     }
+
 };
 const mutations = {
 
@@ -51,7 +56,7 @@ const mutations = {
     },
 
     getAllSuccess(state, res) {
-        state.all = { foods: res.listfoods, page_total: res.pagetotal };
+        state.all = { foods: res.listfoods, page_total: res.pagetotal, all: true };
     },
 
     getAllFailure(state, error) {
@@ -77,10 +82,15 @@ const mutations = {
     addRatingFailure(state, error) {
         state.all = { ...state.all, error };
     },
+    getByCategorySuccess(state, data) {
+        state.all = { foods: data.res.listfoods ,category:true ,id: data.id};
+    },
 
-    getByCategorySuccess(state, res) {
-        state.all = { foods: res.listfoods, filter: true };
+    getBySearchSuccess(state, data){
+        console.log(data)
+        state.all = { foods: data.res.results, search:true, q:data.q};
     }
+
 };
 
 export const foods = {

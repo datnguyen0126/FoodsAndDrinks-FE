@@ -29,12 +29,17 @@
                 <router-link to="/profile" class="btn btn-link">Back</router-link>
             </div>
         </form>
+        <Footer/>
     </div>
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
+import Footer from '../components/Footer'
 
 export default {
+    components:{
+        Footer
+    },
     data () {
         return {
             current_password: '',

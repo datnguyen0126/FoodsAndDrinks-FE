@@ -30,13 +30,18 @@
                 <p v-show="account.status.updated">Change profile success</p>
             </div>
         </form>
+        <Footer/>
     </div>
 </template>
 
 <script>
+import Footer from '../components/Footer'
 import { mapState, mapActions } from 'vuex'
 
 export default {
+    components:{
+        Footer
+    },
     data () {
         return {
             user: {

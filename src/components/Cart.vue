@@ -50,6 +50,7 @@
         </tfoot>
       </table>      
     </div>
+  <Footer/>
   </div>
 </template>
     
@@ -57,11 +58,13 @@
 import { mapActions, mapState } from "vuex";
 import CartLine from "./CartLine";
 import Navbar from "./Navbar";
+import Footer from "../components/Footer"
 
 export default {
   components: {
     Navbar,
     CartLine,
+    Footer
   },
   computed: {
     ...mapState({

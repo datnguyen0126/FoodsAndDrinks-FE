@@ -18,12 +18,17 @@
                 <router-link to="/register" class="btn btn-link">Register</router-link>
             </div>
         </form>
+        <Footer/>
     </div>
 </template>
 
 <script>
+import Footer from '../components/Footer'
 import { mapState, mapActions } from 'vuex'
 export default {
+    components:{
+        Footer
+    },
     data () {
         return {
             email: '',

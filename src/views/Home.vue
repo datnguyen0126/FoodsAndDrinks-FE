@@ -7,16 +7,15 @@
             </div>
             <FoodtList/>
         </div>
+        <Footer/>
     </div>
-
-    
-    
 </template>
 
 <script>
     import FoodtList from '../components/FoodtList'
     import Navbar from '../components/Navbar'
     import Category from '../components/Category'
+    import Footer from '../components/Footer'
     import { mapState, mapActions} from 'vuex'
 
     export default {
@@ -33,7 +32,8 @@
         components: {
             FoodtList, 
             Navbar,
-            Category
+            Category,
+            Footer
             }
     }
 </script>
