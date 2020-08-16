@@ -37,13 +37,13 @@ const actions = {
     getByCategory({ commit }, { id }) {
         foodService.getByCategory(id)
             .then(
-                res =>commit('getByCategorySuccess', res)
+                res =>commit('getByCategorySuccess', {res, id})
             )
     },
     getBySearch({ commit }, { q }){
         foodService.getbySearch(q)
             .then(
-                res=>commit('getBySearchSuccess', res),
+                (res)=>commit('getBySearchSuccess', {res, q}),
                 error=>commit('getBySearchFailure', error)
             )
     }
@@ -82,14 +82,13 @@ const mutations = {
     addRatingFailure(state, error) {
         state.all = { ...state.all, error };
     },
-
-    getByCategorySuccess(state, res) {
-        state.all = { foods: res.listfoods };
+    getByCategorySuccess(state, data) {
+        state.all = { foods: data.res.listfoods ,category:true ,id: data.id};
     },
 
-    getBySearchSuccess(state, res){
-        console.log(res)
-        state.all = { foods: res.results};
+    getBySearchSuccess(state, data){
+        console.log(data)
+        state.all = { foods: data.res.results, search:true, q:data.q};
     }
 
 };

@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export const categoryService = {
     getAll,
+    getResults,
 };
 
 let url = process.env.VUE_APP_DJANGO_HOST;
@@ -10,6 +11,11 @@ function getAll() {
     return axios
         .get(`${url}/foods/categories/`)
         .then(handleResponse)
+}
+
+function getResults() {
+    return axios
+        .get(`${url}/foods/categories/`)
 }
 
 function handleResponse(response) {

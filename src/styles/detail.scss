@@ -55,3 +55,26 @@
     justify-content: center;
     height: 50vh;
   }
+.star {
+    color: #ffe100
+}
+.food-detail {
+    margin-top: 10px;
+    font-size: 30px;
+    color: #464646;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-bottom: 4px;
+    line-height: 33px;
+}
+.description{
+    text-indent: 40px;
+}
+.body-comment {
+    margin-left: 55px;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+}

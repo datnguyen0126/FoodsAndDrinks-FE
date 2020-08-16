@@ -52,6 +52,5 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-@import "../styles/rating.scss";
-
+@import "../styles/detail.scss";
 </style>
