@@ -1,25 +1,21 @@
 import Vue from "vue";
 import Vuex from "vuex";
-
+import { alert } from './alert.module';
+import { account } from './account.module';
+import { comments } from './comment.module';
+import { foods } from './food.module';
+import { cart } from './cart.module'
+import { order } from './order.module'
 
 Vue.use(Vuex);
 
-// const baseUrl = process.env.DJANGO_HOST;
-// const productsUrl = `${baseUrl}/products`;
-// const categoriesUrl = `${baseUrl}/categories`;
-
 export default new Vuex.Store({
-    strict: true,
-    state: {
-
+    modules: {
+        alert,
+        foods,
+        account,
+        comments,
+        cart, 
+        order
     },
-    getters: {
-
-    },
-    mutations: {
-        
-    },
-    actions: {
-
-    }
 })

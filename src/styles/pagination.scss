@@ -1,0 +1,13 @@
+.pagination {
+    list-style-type: none;
+    margin-left: 200px;
+  }
+  
+  .pagination-item {
+    display: inline-block;
+  }
+  
+  .active {
+    background-color: #4AAE9B;
+    color: #ffffff;
+  }
